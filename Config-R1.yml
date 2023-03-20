@@ -21,21 +21,12 @@
           - no shut
         parents: interface FastEthernet2/0
 
-    - name: Configure OSPF
-      ios_config:
-        lines:
-          - router ospf 1
-          - network 192.168.49.2 0.0.0.0 area 0
-          - network 192.168.50.2 0.0.0.0 area 0
-
     - name: Gather Facts
       cisco.ios.ios_facts:
         gather_subset: all
-        gather_network_resources: ospfv2
 
     - name: Confirm IP Addresses and Networks in OSPF process
       debug:
         msg: 
         - " IPs Assigned --> {{ ansible_net_all_ipv4_addresses }}"
-        - "Added into OSPF"
-        - "{{ ansible_network_resources }}"
+
