@@ -1,0 +1,15 @@
+  ---
+
+- name: Configure R2
+  hosts: R3
+  gather_facts: false
+  connection: local
+
+  tasks:
+    
+   - name: Configure OSPF
+     ios_config:
+       lines:
+         - router ospf 1
+         - network 192.168.52.2 0.0.0.0 area 0
+         - network 192.168.53.2 0.0.0.0 area 0
