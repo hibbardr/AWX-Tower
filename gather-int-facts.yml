@@ -1,0 +1,18 @@
+---
+
+- name: Capture show output
+  hosts: R1
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+     - name: show run 
+       ios_command:
+         commands:
+         - show ip int br
+       register: config
+       
+     - name: save output to local directory
+       copy:
+        content: "{{ config.stdout | replace('\\n', '\n') }}"
+        dest: "Show-output/{{ inventory_hostname }}.ios
